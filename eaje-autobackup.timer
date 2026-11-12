@@ -1,0 +1,15 @@
+[Unit]
+Description=Run Eaje Autobackup daily
+
+[Timer]
+# Contabo's add-on runs once a day inside a window Contabo picks.
+# We pick our own window instead: 03:30 server time, the quietest hour,
+# with up to 30 minutes of random delay. Persistent=true means a run
+# missed while the server was off fires as soon as it boots again.
+OnCalendar=*-*-* 03:30:00
+RandomizedDelaySec=30m
+Persistent=true
+Unit=eaje-autobackup.service
+
+[Install]
+WantedBy=timers.target
