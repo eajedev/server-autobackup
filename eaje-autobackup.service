@@ -1,0 +1,14 @@
+[Unit]
+Description=Eaje Autobackup — daily incremental backup (Contabo Auto Backup equivalent)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/eaje-autobackup.sh
+# Be gentle on a production box: backups yield CPU and disk to real work.
+Nice=10
+IOSchedulingClass=idle
+PrivateTmp=true
+# No ProtectSystem / sandboxing here on purpose: the job must read /data,
+# docker volumes and the docker socket to do its work.
